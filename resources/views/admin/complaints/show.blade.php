@@ -103,7 +103,7 @@
                                             <tr>
                                                 <td>Foto</td>
                                                 <td>
-                                                    <img src="{{ asset('storage/avatar_complaint'.$complaint->photo) }}" width="500">
+                                                    <img src="{{ asset('storage/avatar_complaint/' . $complaint->photo) }}" width="500">
                                                 </td>
                                             </tr>
                                             <tr>

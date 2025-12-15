@@ -111,7 +111,7 @@
                                                 <tr>
                                                     <td>Foto</td>
                                                     <td>
-                                                        <img src="{{asset('storage/avatar_complaint',$complaint->photo)}}" width="500px">
+                                                        <img src="{{ asset('storage/avatar_complaint/' . $complaint->photo) }}" width="500px">
                                                     </td>
                                                 </tr>
                                                 <tr>

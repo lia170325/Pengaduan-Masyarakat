@@ -56,7 +56,7 @@
                                 @foreach ($complaints as $row)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td><img src="{{ asset('storage/avatar_complaint'.$row->photo) }}" width="100"></td>
+                                    <td><img src="{{ asset('storage/avatar_complaint/' . $row->photo) }}" width="100"></td>
                                     <td>{{$row->Society->name}}</td>
                                     <td>{{ date('d F Y H:i:s', strtotime($row->created_at)) }}</td>
 

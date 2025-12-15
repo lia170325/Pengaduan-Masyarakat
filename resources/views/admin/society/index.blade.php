@@ -66,7 +66,7 @@
                                     @if ($row->photo == NULL)
                                     <td><span class="badge rounded-pill bg-danger">Emtpy</span></td>
                                     @else
-                                    <td><img class="rounded-circle avatar-xs" src="{{ asset('storage/avatar_society'.$row->photo) }}"></td>
+                                    <td><img class="rounded-circle avatar-xs" src="{{ asset('storage/avatar_society/' . $row->photo) }}"></td>
                                     @endif
                                     <td>{{$row->nik}}</td>
                                     <td>{{$row->username}}</td>
