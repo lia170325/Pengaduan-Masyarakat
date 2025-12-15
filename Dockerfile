@@ -1,24 +1,38 @@
-FROM php:8.3-cli
+FROM php:8.4-apache
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git unzip libzip-dev libpng-dev \
-    && docker-php-ext-install pdo pdo_mysql zip
+    libpng-dev libonig-dev libxml2-dev zip unzip libpq-dev curl \
+    && docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd opcache
 
-# Install Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf
+RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf
+RUN a2enmod rewrite
 
-WORKDIR /var/www
+ENV PORT=8080
+RUN sed -i "s/Listen 80/Listen ${PORT}/" /etc/apache2/ports.conf
+RUN sed -i "s/:80>/:${PORT}>/" /etc/apache2/sites-available/000-default.conf
 
-# Copy project
-COPY Aplikasi-Pengaduan-Masyarakat/ .
+RUN { \
+    echo 'opcache.memory_consumption=128'; \
+    echo 'opcache.interned_strings_buffer=8'; \
+    echo 'opcache.max_accelerated_files=10000'; \
+    echo 'opcache.revalidate_freq=0'; \
+    echo 'opcache.validate_timestamps=0'; \
+    echo 'opcache.fast_shutdown=1'; \
+    echo 'opcache.enable_cli=1'; \
+} > /usr/local/etc/php/conf.d/opcache.ini
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Permission
-RUN chmod -R 777 storage bootstrap/cache
+WORKDIR /var/www/html
+COPY . .
 
-EXPOSE 8000
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN chown -R www-data:www-data storage bootstrap/cache
 
-CMD php artisan serve --host=0.0.0.0 --port=8000
+EXPOSE 80
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
