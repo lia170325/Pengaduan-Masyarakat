@@ -59,14 +59,14 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{url('avatar/'.Auth::user()->photo)}}"
-                        alt="Header Avatar">
+                <img class="rounded-circle header-profile-user"
+                    src="{{ Auth::user()->photo ? asset('storage/avatar/'.Auth::user()->photo) : 'https://i.pravatar.cc/150?u='.Auth::id() }}"
+                    alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{Auth::user()->username}}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                   
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="{{url('logout')}}"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
                 </div>

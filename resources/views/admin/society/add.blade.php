@@ -6,7 +6,7 @@
 @section('content')
 <div class="page-content">
     <div class="container-fluid">
-        
+
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -22,7 +22,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                
+
                 <a href="{{route('society.index')}}" class="button"><i class="bx bx-arrow-back label-icon"></i> &nbsp;&nbsp;Kembali Ke Daftar Masyarakat</a>
                 <br>
                 <br>
@@ -102,10 +102,10 @@
                                             <input class="form-control" type="password" id="password" name="password">
                                         </div>
                                     </div>
-                                    
-                                    
-                                    
-                                    
+
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -118,7 +118,6 @@
                                     </div>
                                     <br>
                                     <button name="submit" type="submit" class="btn btn-primary" value="save">Simpan</button>
-                                    <button name="submit" type="submit" class="btn btn-primary" value="more"></button>
                                     <a href="{{route('users.index')}}" class="btn btn-danger">Batal</a>
                                 </div>
                             </div>
@@ -127,7 +126,7 @@
                 </div>
             </form>
         </div>
-        
+
     </div>
 </div>
 @endsection
